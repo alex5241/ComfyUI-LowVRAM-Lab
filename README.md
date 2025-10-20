@@ -4,12 +4,11 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 ## 项目简介
 本仓库是我在低显存显卡（4060Ti 8GB）上使用 ComfyUI 进行AI创作的笔记记录。
 
-## 项目创建原因
 - 我在使用gpt或者deepseek解决comfyui相关的技术问题时，经常得到比较模糊或者不准确的回答。
 - 我觉得可能是相关技术还比较新，而且各种大模型每月也都在更新，网络上还没有足够多的数据供给AI来抓取。
 - 所以我创建了这个项目来自己记录。
 - 本项目所有内容均为真实+原创+手打，希望我的项目对你有帮助。
-- 本项目长期更新。
+- 本项目长期更新。但由于测试过程比较慢，更新不定期。
 
 ## 我的硬件配置
 - GPU：RTX 4060Ti 8GB
@@ -31,6 +30,31 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - wan2.2 在技术上完全替代wan2.1，我现在已经删除了wan2.1的所有模型及工作流。
 - wan2.5 风声大雨点小，10.1前开放的是收费模式，可能后期不会再开源。目前都在等消息。
 - 如果现成的业务需要AI快速出东西，我建议直接在云平台如RH上玩，因为本地搭建环境还挺复杂的，尤其是对于非技术人员。 
+
+## 关于环境：
+- 整合包有自己的一套环境，都在整合包里。与电脑安装的python，torch等环境无关。
+- 秋叶整合包目前最稳定的版本是v1.7。内置的是 torch 2.7.0+cu128 ,  python 3.11.
+- 秋叶v2版本过高，部分python库或者节点库等没跟上适配，会有莫名其妙的问题，比如卡采样器，就是加速失效导致。
+- 其他的整合包也大差不差，有的很大很全，内置了所有的节点和模型库，文件就会很大，20g的整合包也经常见。
+- 整个加速依赖关系为  cuda->python->pytroch->xformers或sage（要依赖triton）或flashattention，各依赖之间必须版本匹配一致。
+- 自行安装或者升级环境时，循序上面的依赖关系，并严格保持版本匹配进行下载安装,下方为一个比较稳定的版本示例：
+  - pip list ,  python 3.11   
+  - 先下python官网非exe的集成包，其内部没有pip，再加上pip，然后可用pip命令下载其他包。
+  - pytorch  必须下带有cuda加速包 ,   一般整合包自带   2.7.0+cu128
+  - xformers  命令行安装   0.0.30+4cf69f09.d20250606
+  - triton 命令行安装  pip install -U "triton-windows<3.4"    triton-windows-3.3.1.post19 ，实际下载的是 triton_windows-3.3.1.post19-cp311-cp311-win_amd64.whl
+  - sageattention2,  下载对应版本，本地安装。  2.1.1+cu128torch2.7.0
+- 下载多版本选择时，windows/linux是平台，cp是python版本,tor是torch缩写，cu是cuda缩写，x86,arm是cpu类型,32 64是cpu位数，现在基本都是64位，都是x86_64,有些是amd64。
+- 工作流层面的常用加速：
+  - 双节棍  需要安装python库 https://github.com/nunchaku-tech/nunchaku/releases 和节点 https://github.com/nunchaku-tech/ComfyUI-nunchaku，同时需配合自己的大模型,所以每有一个大模型，双节棍就得基于官方出自己的模型库；
+  - lightx2v: 蒸馏模型，需配合它自己的蒸馏模型或者lora ；
+  - teacache 不用；
+  - 其他自带优化加速的模型。
+- 单独安装python包，需要在启动器内部打开命令行， python命令改为python.exe -m + pip命令 。  比如： pythone.exe -m pip install
+- 基本上所有东西安装就三种，都是往model里扔东西，会了一个就都全会了：
+  - 直接拷贝内容到对应目录即可。
+  - 内容需要对应节点一起用，安装对应节点。内容可能不是一个，是多个； 或者内容需要py脚本等一堆，直接全下载拷进去。
+  - 内容需要底层python库支持，先安，再下节点，再下内容。比如双节棍。
 
 ## 关于wan2.2
 - 我的配置是无法跑wan2.2官方模型的 ，只能去跑gguf，在牺牲一定的精度后换取到了本地的可运行。
