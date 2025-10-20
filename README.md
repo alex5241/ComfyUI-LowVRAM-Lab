@@ -8,6 +8,7 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 我觉得可能是相关技术还比较新，而且各种大模型每月也都在更新，网络上还没有足够多的数据供给AI来抓取。
 - 所以我创建了这个项目来自己记录。
 - 本项目所有内容均为真实+原创+手打，希望我的项目对你有帮助。
+- 本项目内容多为总结性质经验内容，并非教学方案。
 - 本项目长期更新。但由于测试过程比较慢，更新不定期。
 
 ## 我的硬件配置
@@ -46,7 +47,7 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
   - sageattention2,  下载对应版本，本地安装。  2.1.1+cu128torch2.7.0
 - 下载多版本选择时，windows/linux是平台，cp是python版本,tor是torch缩写，cu是cuda缩写，x86,arm是cpu类型,32 64是cpu位数，现在基本都是64位，都是x86_64,有些是amd64。
 - 工作流层面的常用加速：
-  - 双节棍  需要安装python库 https://github.com/nunchaku-tech/nunchaku/releases 和节点 https://github.com/nunchaku-tech/ComfyUI-nunchaku，同时需配合自己的大模型,所以每有一个大模型，双节棍就得基于官方出自己的模型库；
+  - 双节棍  需要安装python库 https://github.com/nunchaku-tech/nunchaku/releases 和节点 https://github.com/nunchaku-tech/ComfyUI-nunchaku。同时需配合自己的大模型,所以每有一个大模型，双节棍就得基于官方出自己的模型库；
   - lightx2v: 蒸馏模型，需配合它自己的蒸馏模型或者lora ；
   - teacache 不用；
   - 其他自带优化加速的模型。
