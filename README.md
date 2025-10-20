@@ -21,6 +21,21 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 整合包：秋叶整合包 
 - 版本号：ComfyUI-aki-v1.7 （大小：4G左右）
 
+## 一些通用的话
+--  我的这套配置，在玩视频大模型，比如wan系列的时候，基本上都是无法跑起来的。
+--  通常意义上，社区都会有量化或者蒸馏模型，比如gguf或者light2v系列。他们能让低配置的机器跑起来。
+--  很多人以为只需要显存大就行，实际上内存也很重要，我32g物理内存+32g虚拟内存，经常占用双100%。建议48g内存起步。
+--  大显存比高级别显卡重要。比如5060ti 16g，优于5070 12g.很多模型显存大了才能跑。
+--  经常有显卡一样的人跑一套工作流，一个跑不了，一个能跑。可能就是一个内存大，显存通过block swap,用内存顶了一下。
+--  wan2.2 在技术上完全替代wan2.1，我现在已经删除了wan2.1的所有模型及工作流。
+--  wan2.5 风声大雨点小，10.1前开放的是收费模式，可能后期不会再开源。目前都在等消息。
+--  如果现成的业务需要AI快速出东西，我建议直接在云平台如RH上玩，因为本地搭建环境还挺复杂的，尤其是对于非技术人员。 
+
+## 关于wan2.2
+- 我的配置是无法跑wan2.2官方模型的 ，只能去跑gguf，在牺牲一定的精度后换取到了本地的可运行。
+- 我本地跑的是gguf q4，我觉得我应该能跑到q5。
+- 我本地是不跑KJ的所有工作流的。根据我的不充分测试，KJ的工作流一般比官方流更吃机器配置，且需要更大的内存。
+
 
 
 ## 关于新遮罩模型sec4b，号称碾压sam2。
@@ -31,7 +46,7 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 经测试，即便是fp8模型，我的8g显卡也跑不起来。运行工作流 load sec 会直接挂掉。这也符合文档说明，文档建议最低12g显存。
 - 模型开发者称： fp8 模型发现有问题 ，comfyui节点已经删除对fp8支持，建议使用 fp16。
 - 社区有更省显存和更快速度的节点。 https://github.com/lihaoyun6/ComfyUI-SecNodes_Ultra_Fast。
-- 经测试，ComfyUI-SecNodes_Ultra_Fast节点和fp16 在我本地可以完美运行。然后在wan2.2 animate工作流里也正常运行。
+- 经测试，ComfyUI-SecNodes_Ultra_Fast节点搭配fp16模型在我本地可以完美运行。然后在wan2.2 animate工作流里也正常运行。
 
 
 ## License
