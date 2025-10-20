@@ -24,7 +24,7 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 
 ## 一些通用的话
 - 我的这套配置，在玩视频大模型，比如wan系列的时候，基本上都是无法跑起来的。
-- 通常意义上，社区都会有量化或者蒸馏模型，比如gguf或者light2v系列。他们能让低配置的机器跑起来。
+- 通常意义上，社区都会有量化或者蒸馏模型，比如gguf或者lightx2v系列。他们能让低配置的机器跑起来。
 - 很多人以为只需要显存大就行，实际上内存也很重要，我32g物理内存+32g虚拟内存，经常占用双100%。建议48g内存起步。
 - 大显存比高级别显卡重要。比如5060ti 16g，优于5070 12g.很多模型显存大了才能跑。
 - 经常有显卡一样的人跑一套工作流，一个跑不了，一个能跑。可能就是一个内存大，显存通过block swap,用内存顶了一下。
@@ -51,6 +51,13 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 社区有更省显存和更快速度的节点。 https://github.com/lihaoyun6/ComfyUI-SecNodes_Ultra_Fast。
 - 经测试，ComfyUI-SecNodes_Ultra_Fast节点搭配fp16模型在我本地可以完美运行。然后在wan2.2 animate工作流里也正常运行。
 
+## 关于注意力加速
+- 我一直没完全弄懂注意力加速到底该怎么开，但是我经常出问题的时候，就切一下就正常了。
+- 图片处理开成xformers； 视频处理改成sageattention。
+- 在模型都正常的情况下，如果采样器全黑，优先考虑切换到xformers试下。
+- 很多视频工作流里是有切换到sageattention的内容的，运行时，会自动切换，不用在启动器里改动也可以。
+- flash_attention_2： 只有linux版本,windows下无需关心。
+- Flash Attention 仅在 FP16 / BF16 精度下可用，对于 FP32 / FP8 模型，README 明确写：“Automatically disabled for FP32/FP8 precision 。所以低配置电脑因为跑不起fp16的话，无需考虑。
 
 ## License
 MIT License
