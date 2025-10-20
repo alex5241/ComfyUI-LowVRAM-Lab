@@ -21,6 +21,19 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 整合包：秋叶整合包 
 - 版本号：ComfyUI-aki-v1.7 （大小：4G左右）
 
+
+
+## 关于新遮罩模型sec4b，号称碾压sam2。
+- 最开始需下载4个模型文件，共20g左右。 https://huggingface.co/OpenIXCLab/SeC-4B/tree/main 
+- 后来有了单模型下载，且有fp8支持。https://huggingface.co/VeryAladeen/Sec-4B/tree/main
+- 模型需要搭配配套comfyui节点一起使用。 https://github.com/9nate-drake/Comfyui-SecNodes
+- 模型放置，节点文档说的是models/sams/sec-4b/，但我本地这样放置不对，我的位置在models\sams。
+- 经测试，即便是fp8模型，我的8g显卡也跑不起来。运行工作流 load sec 会直接挂掉。这也符合文档说明，文档建议最低12g显存。
+- 模型开发者称： fp8 模型发现有问题 ，comfyui节点已经删除对fp8支持，建议使用 fp16。
+- 社区有更省显存和更快速度的节点。 https://github.com/lihaoyun6/ComfyUI-SecNodes_Ultra_Fast。
+- 经测试，ComfyUI-SecNodes_Ultra_Fast节点和fp16 在我本地可以完美运行。然后在wan2.2 animate工作流里也正常运行。
+
+
 ## License
 MIT License
 转载请注明出处
