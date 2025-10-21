@@ -35,6 +35,8 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 如果现成的业务需要AI快速出东西，我建议直接在云平台如RH上玩，因为本地搭建环境还挺复杂的，尤其是对于非技术人员。
 - 云平台的好处是不用搭建环境，直接就能跑。坏处是不能nsfw；需要付费；需要排队等待。本机跑的好坏反之。
 - 社区里有很多做融合，加速等模型的，基本上每周都会出新模型，迭代速度非常快。comfyui也基本每天都会有新的内容更新。
+- 目前社区的活跃度是非常高的，各种群里的消息基本动不动就在上千条。
+- b站有很多卖课的，到处搬运别人的视频或者工作流，筛选内容要睁大眼睛。
 
 ## 关于环境：
 - 整合包有自己的一套环境，都在整合包里。与电脑安装的python，torch等环境无关。
@@ -87,6 +89,8 @@ Experiments and optimizations for running ComfyUI on low-VRAM GPUs.
 - 很多视频工作流里是有切换到sageattention的内容的，运行时，会自动切换，不用在启动器里改动也可以。
 - flash_attention_2： 只有linux版本,windows下无需关心。
 - Flash Attention 仅在 FP16 / BF16 精度下可用，对于 FP32 / FP8 模型，README 明确写：“Automatically disabled for FP32/FP8 precision 。所以低配置电脑因为跑不起fp16的话，无需考虑。
+
+## 常用网址
 
 ## License
 MIT License
